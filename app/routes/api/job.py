@@ -1,23 +1,23 @@
 from flask import Blueprint, jsonify, request
 from ...utils.device import devices, is_busy
-from ...job import jobs, Job
+from ...job import jobs, Job, JobState
 from uuid import UUID
 
 job_blueprint = Blueprint('job', __name__)
 
-@job_blueprint.route("/", defaults={"job_id": None})
-@job_blueprint.route("/<uuid:job_id>")
-def get(job_id: UUID):
-    if job_id:
+@job_blueprint.route("/")
+def list():
+    id = request.form.get("id")
+    if id:
         for j in jobs:
-            if j.id != str(job_id):
+            if j.id != id:
                 continue
             
-            return jsonify({ "job": dict(j) })
-        
+            return jsonify({ "data": [ dict(j) ] })
+
         return jsonify({ "message": "Could not find the specified job" }), 404
     else:
-        return jsonify({ "jobs": jobs })
+        return jsonify({ "data": jobs })
 
 @job_blueprint.route("/create", methods=["POST"])
 def start():
@@ -33,7 +33,7 @@ def start():
     jobs.append(job)
     job.process()
 
-    return jsonify({ "message": "Job created", "id": job.id })
+    return jsonify({ "message": "Job created", "data": [ dict(job) ] })
 
 @job_blueprint.route("/cancel", methods=["POST"])
 def cancel():
@@ -41,4 +41,17 @@ def cancel():
 
 @job_blueprint.route("/download")
 def download():
-    return jsonify({ "message": "Job incomplete" }), 400
+    id = request.form.get("id")
+    if not id:
+        return jsonify({ "message": "No job ID provided" }), 400
+    
+    for j in jobs:
+        if j.id != id:
+            continue
+        
+        if j.state != JobState.DONE:
+            return jsonify({ "message": "Job is still being processed. Please try again later." }), 400
+
+        break
+
+    return jsonify({ "message": "Not implemented" }), 500

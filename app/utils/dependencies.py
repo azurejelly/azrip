@@ -6,12 +6,12 @@ def check_dependencies():
     if system == "windows":
         return "unsupported operating system"
 
-    path = shutil.which("cdparanoia")
-    if path == None:
-        return "system must have 'cdparanoia' on PATH"
+    # path = shutil.which("cdparanoia")
+    # if path == None:
+    #     return "system must have 'cdparanoia' on PATH"
     
-    path = shutil.which("flac")
-    if path == None:
-        return "system must have 'flac' on PATH"
+    # path = shutil.which("flac")
+    # if path == None:
+    #     return "system must have 'flac' on PATH"
 
     return None

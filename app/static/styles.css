@@ -1,0 +1,71 @@
+body {
+    background-image: url('/static/img/background.jpg');
+    font-family: "arial", sans-serif;
+    font-size: 16px;
+}
+
+.banner {
+    width: 100%;
+    padding: 15px;
+    background: #222; /* change as needed */
+    color: white; 
+    text-align: center;
+    font-size: 18px;
+}
+
+.main-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    background-color: #f8f9fa;
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+}
+
+.title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 50px; /* tweak as needed */
+    height: auto;
+}
+
+form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.form-row {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.form-row label {
+    width: 80px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.form-row input {
+    flex: 1;
+    padding: 5px;
+    border-radius: 0px;
+    border: 1px solid black;
+}
+
+button {
+    background-color: #0090c0;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+}
